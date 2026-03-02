@@ -16,7 +16,7 @@ function toTimestamp(seconds) {
   return `${m}:${s}`;
 }
 
-function renderVideo(videoId, originalUrl) {
+function renderVideo(videoId, originalUrl, analysisInfo = {}) {
   if (!videoId) {
     videoContainer.textContent = 'Could not detect a YouTube ID; running analysis with fallback captions.';
     videoHelp.textContent = 'Tip: use a full YouTube URL containing a valid video ID.';
@@ -34,10 +34,15 @@ function renderVideo(videoId, originalUrl) {
     ></iframe>
   `;
 
+  const analysisNote = analysisInfo.generatedFromMetadata
+    ? `Feed items are generated from the video's topic (<strong>${analysisInfo.videoTitle || 'YouTube metadata'}</strong>) when captions are unavailable.`
+    : 'Feed items are using a generic fallback stream because video metadata/captions were unavailable.';
+
   videoHelp.innerHTML = `
     If you see “Video unavailable”, the owner has disabled embedding for this video or region.<br />
     <a href="${watchUrl}" target="_blank" rel="noreferrer">Open video on YouTube</a>
     ${originalUrl && !originalUrl.includes('youtube.com') && !originalUrl.includes('youtu.be') ? ' (original URL analyzed with fallback stream)' : ''}
+    <br />${analysisNote}
   `;
 }
 
@@ -115,10 +120,10 @@ form.addEventListener('submit', async (event) => {
     return;
   }
 
-  const { sessionId, videoId } = await response.json();
-  renderVideo(videoId, url);
+  const session = await response.json();
+  renderVideo(session.videoId, url, session);
 
-  source = new EventSource(`/api/session/${sessionId}/stream`);
+  source = new EventSource(`/api/session/${session.sessionId}/stream`);
   source.onmessage = (msg) => addFeedItem(JSON.parse(msg.data));
   source.addEventListener('end', () => source.close());
 });
