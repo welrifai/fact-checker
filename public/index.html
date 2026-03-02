@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real-Time Fact Checker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Real-Time Video Fact Checker</h1>
+      <p>Paste a YouTube link to monitor claims, references, definitions, and discussion prompts live.</p>
+      <form id="video-form">
+        <input id="video-url" type="url" placeholder="https://www.youtube.com/watch?v=..." required />
+        <button type="submit">Start Analysis</button>
+      </form>
+    </header>
+
+    <main>
+      <section class="video-section">
+        <h2>Live Video</h2>
+        <div id="video-container" class="video-placeholder">Video will appear here after starting a session.</div>
+        <p id="video-help" class="video-help"></p>
+      </section>
+
+      <section>
+        <div class="tabs">
+          <button class="tab active" data-tab="feed">Fact-check feed</button>
+          <button class="tab" data-tab="references">Running references</button>
+          <button class="tab" data-tab="discussion">Discussion</button>
+        </div>
+
+        <div id="feed" class="panel active"></div>
+        <div id="references" class="panel">
+          <ul id="reference-list"></ul>
+        </div>
+        <div id="discussion" class="panel">
+          <p>Click an item in the feed to inspect discussion prompts and context questions.</p>
+          <div id="discussion-content"></div>
+        </div>
+      </section>
+    </main>
+
+    <template id="feed-item-template">
+      <article class="feed-item">
+        <div class="row">
+          <span class="timestamp"></span>
+          <span class="badge"></span>
+        </div>
+        <p class="claim"></p>
+        <p class="definitions"></p>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "fact-checker",
+  "version": "1.0.0",
+  "description": "Real-time fact-checking demo for video captions",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
