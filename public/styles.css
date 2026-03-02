@@ -1,0 +1,82 @@
+:root {
+  color-scheme: dark;
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --contentious: #f59e0b;
+  --true: #10b981;
+  --false: #ef4444;
+  --context: #38bdf8;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+header { padding: 1rem 2rem; }
+form { display: flex; gap: 0.5rem; max-width: 800px; }
+input {
+  flex: 1;
+  padding: 0.65rem;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: var(--text);
+}
+button {
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  border: none;
+  background: #6366f1;
+  color: white;
+  cursor: pointer;
+}
+main { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1rem; padding: 0 2rem 2rem; }
+section { background: var(--panel); border-radius: 12px; padding: 1rem; min-height: 300px; }
+.video-placeholder { border: 1px dashed #475569; border-radius: 12px; min-height: 300px; display: grid; place-items: center; color: var(--muted); }
+.video-help { color: var(--muted); font-size: 0.92rem; margin-top: 0.6rem; }
+iframe { width: 100%; min-height: 360px; border: none; border-radius: 12px; }
+.tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.tab { background: #334155; }
+.tab.active { background: #475569; }
+.panel { display: none; }
+.panel.active { display: block; }
+.feed-item {
+  border-left: 5px solid var(--context);
+  background: #0b1221;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  padding: 0.75rem;
+  cursor: pointer;
+}
+.feed-item.contentious { border-color: var(--contentious); }
+.feed-item.likely-true { border-color: var(--true); }
+.feed-item.possibly-false { border-color: var(--false); }
+.row { display: flex; justify-content: space-between; color: var(--muted); font-size: 0.9rem; }
+.badge { text-transform: capitalize; font-weight: 700; }
+.def-term {
+  border-bottom: 1px dotted #cbd5e1;
+  position: relative;
+}
+.def-term:hover::after {
+  content: attr(data-definition);
+  position: absolute;
+  left: 0;
+  bottom: 120%;
+  width: 220px;
+  background: #334155;
+  color: white;
+  padding: 0.4rem;
+  border-radius: 6px;
+  z-index: 10;
+  font-size: 0.75rem;
+}
+ul { margin: 0; padding-left: 1.1rem; }
+a { color: #93c5fd; }
+@media (max-width: 900px) {
+  main { grid-template-columns: 1fr; }
+}
